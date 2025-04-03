@@ -9,7 +9,7 @@ model = joblib.load("output/readmission_predictor.pkl")
 
 # Load dataset to check expected feature names
 final_df = pd.read_csv("inputs/readmission_dataset/final_df.csv")
-expected_features = final_df.drop(columns=["readmitted"]).columns  # Drop target column
+expected_features = final_df.drop(columns=["readmitted"]).columns
 
 # Define age mapping (same as training)
 age_mapping = {
@@ -47,7 +47,7 @@ def preprocess_input(data):
     }
     for col, lam in lambda_values.items():
         if col in data.columns:
-            data[f"boxcox_{col}"] = apply_boxcox(data[col] + 1, lam)  # Avoid zero values
+            data[f"boxcox_{col}"] = apply_boxcox(data[col] + 1, lam)
 
     # Apply Square Root Transformation
     if "n_procedures" in data.columns:
@@ -74,13 +74,12 @@ def make_prediction(data):
     # 🔍 Debugging: Print processed data shape
     st.write("🛠 Model Input Shape:", processed_data.shape)
 
-    # Ensure feature order matches training
     processed_data = processed_data[expected_features]  
 
     # Get probability predictions if model supports it
     if hasattr(model, "predict_proba"):
-        proba = model.predict_proba(processed_data)[:, 1]  # Probability of "Readmitted"
-        prediction = (proba > 0.4).astype(int)  # Adjust threshold from 0.5 to 0.4
+        proba = model.predict_proba(processed_data)[:, 1]  
+        prediction = (proba > 0.4).astype(int)  
     else:
         prediction = model.predict(processed_data)
 
