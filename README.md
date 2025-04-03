@@ -87,4 +87,8 @@ The **Streamlit dashboard** provides an interactive way to explore the dataset, 
 5) **Patient Readmission Predictor** – User inputs patient data (manual or CSV upload) to receive readmission predictions.
 6) **Technical Details** – Explanation of data preprocessing, feature engineering, model selection, and deployment.
 
-The dashboard is designed to be **user-friendly** for healthcare professionals, allowing them to gain insights and make data-driven decisions efficiently.
+### **Live Demo:**
+
+- **[Readmission Predictor (Heroku)](https://readmission-predictor-live-876b8e020239.herokuapp.com/)**
+
+The dashboard is designed to be **user-friendly for healthcare professionals**, allowing them to gain insights and make **data-driven decisions efficiently**.
