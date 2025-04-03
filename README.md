@@ -1,111 +1,90 @@
-# ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# **Hospital Readmission Prediction**
 
-## Template Instructions
+A machine learning model to predict whether a patient will be readmitted to the hospital, helping healthcare providers manage resources efficiently.
 
-Welcome,
+---
 
-This is the Code Institute student template for the bring your own data project option in Predictive Analytics. We have preinstalled all of the tools you need to get started. It's perfectly okay to use this template as the basis for your project submissions. Click the `Use this template` button above to get started.
+## **1. Dataset Content**
 
-You can safely delete the Template Instructions section of this README.md file and modify the remaining paragraphs for your own project. Please do read the Template Instructions at least once, though! It contains some important information about the IDE and the extensions we use.
+This project utilizes a **hospital readmissions dataset** from Kaggle, covering **10 years of patient records**. It includes numerical and categorical features such as:
 
-## How to use this repo
+- **Patient history:** Number of inpatient, outpatient, and emergency visits  
+- **Medical details:** Diagnoses, lab procedures, medications, and treatment history  
+- **Outcome variable:** Whether the patient was readmitted (**Yes/No**)  
 
-1. Use this template to create your GitHub project repo
+The dataset is **manageable in size**, allowing for efficient training and deployment of a **Supervised Binary Classification** model.
 
-1. In your newly created repo click on the green Code button. 
+---
 
-1. Then, from the Codespaces tab, click Create codespace on main.
+## **2. Business Requirements**
 
-1. Wait for the workspace to open. This can take a few minutes.
+This project aims to help **healthcare providers** optimize **hospital resources** by predicting **which patients are likely to be readmitted**.  
 
-1. Open a new terminal and `pip3 install -r requirements.txt`
+### **Objectives**
 
-1. Open the jupyter_notebooks directory, and click on the notebook you want to open.
+1. **Understanding Readmissions:**  
+   - Identify key factors contributing to **hospital readmissions**.
+   - Use **data visualization** to explore trends in patient history and medical details.
 
-1. Click the kernel button and choose Python Environments.
+2. **Predicting Readmissions:**  
+   - Develop a **machine learning model** to predict **whether a patient will be readmitted**.
+   - Ensure the model is **interpretable** so medical staff can understand key risk factors.
 
-Note that the kernel says Python 3.12.1 as it inherits from the workspace, so it will be Python-3.12.1 as installed by Codespaces. To confirm this, you can use `! python --version` in a notebook code cell.
+---
 
-## Cloud IDE Reminders
+## **3. Hypothesis and Validation**
 
-To log into the Heroku toolbelt CLI:
+| **Hypothesis** | **Validation Approach** |
+|---------------|--------------------|
+| **Patients with a higher number of past inpatient visits are more likely to be readmitted.** | **Correlation analysis** between inpatient visit count and readmission rates. |
+| **Certain diagnoses (e.g., chronic illnesses) increase the likelihood of readmission.** | **Feature importance evaluation** using ML models. |
+| **Frequent emergency visits indicate a higher readmission risk.** | **Statistical tests** on emergency visit frequency vs. readmission outcomes. |
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In the terminal, run `heroku_config`
-5. Paste in your API key when asked
+---
 
+## **4. Machine Learning Business Case**
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+### **Problem Type:**  
 
+- **Supervised Learning → Binary Classification**  
+- **Target Variable:** `readmitted (Yes(1)/No(0))`
 
-## Dataset Content
-* Describe your dataset. Choose a dataset of reasonable size to avoid exceeding the repository's maximum size and to have a shorter model training time. If you are doing an image recognition project, we suggest you consider using an image shape that is 100px × 100px or 50px × 50px, to ensure the model meets the performance requirement but is smaller than 100Mb for a smoother push to GitHub. A reasonably sized image set is ~5000 images, but you can choose ~10000 lines for numeric or textual data. 
+### **Model Success Metrics:**
 
+- **Precision, Recall, and F1-score** to evaluate model performance.
+- Focus on **recall** to minimize false negatives (patients who should have been flagged as high risk).
 
-## Business Requirements
-* Describe your business requirements
+### **Final Model Performance:**
 
+| Metric  | Score |
+|---------|-------|
+| **Precision** | `0.5548` |
+| **Recall** | `0.7426` |
+| **F1 Score** | `0.6351` |
 
-## Hypothesis and how to validate?
-* List here your project hypothesis(es) and how you envision validating it (them) 
+---
 
+## **5. Feature Importance & Model Saving**
 
-## The rationale to map the business requirements to the Data Visualizations and ML tasks
-* List your business requirements and a rationale to map them to the Data Visualizations and ML tasks
+The most predictive features include:
 
+- **BoxCox transformed variables:** `n_emergency`, `n_outpatient`, `n_inpatient`
+- **Medical history features:** `diabetes_med`, `diagnosis categories`  
 
-## ML Business Case
-* In the previous bullet, you potentially visualized an ML task to answer a business requirement. You should frame the business case using the method we covered in the course 
+### **Model Saving & Deployment**
 
+- The final trained model is saved as:
+ 'output/readmission_predictor.pkl')
 
-## Dashboard Design
-* List all dashboard pages and their content, either blocks of information or widgets, like buttons, checkboxes, images, or any other item that your dashboard library supports.
-* Later, during the project development, you may revisit your dashboard plan to update a given feature (for example, at the beginning of the project you were confident you would use a given plot to display an insight but subsequently you used another plot type).
+## **6. Streamlit Dashboard Overview**
 
+The **Streamlit dashboard** provides an interactive way to explore the dataset, analyze key insights, and predict patient readmissions. It includes the following sections:
 
+1) **Project Summary** – Overview of the hospital readmission problem, dataset, and business objectives.
+2) **Data Analysis & Visualization** – Exploratory Data Analysis (EDA) with visualizations of key features and correlations.
+3) **Hypothesis & Validation** – Testing business hypotheses and validating key insights with statistical analysis.
+4) **Model Training & Evaluation** – Machine learning model performance metrics, feature importance, and confusion matrix.
+5) **Patient Readmission Predictor** – User inputs patient data (manual or CSV upload) to receive readmission predictions.
+6) **Technical Details** – Explanation of data preprocessing, feature engineering, model selection, and deployment.
 
-## Unfixed Bugs
-* You will need to mention unfixed bugs and why they were not fixed. This section should include shortcomings of the frameworks or technologies used. Although time can be a significant variable to consider, paucity of time and difficulty understanding implementation is not a valid reason to leave bugs unfixed.
-
-## Deployment
-### Heroku
-
-* The App live link is: https://YOUR_APP_NAME.herokuapp.com/ 
-* Set the runtime.txt Python version to a [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-* The project was deployed to Heroku using the following steps.
-
-1. Log in to Heroku and create an App
-2. At the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App.
-6. If the slug size is too large then add large files not required for the app to the .slugignore file.
-
-
-## Main Data Analysis and Machine Learning Libraries
-* Here you should list the libraries you used in the project and provide an example(s) of how you used these libraries.
-
-
-## Credits 
-
-* In this section, you need to reference where you got your content, media and extra help from. It is common practice to use code from other repositories and tutorials, however, it is important to be very specific about these sources to avoid plagiarism. 
-* You can break the credits section up into Content and Media, depending on what you have included in your project. 
-
-### Content 
-
-- The text for the Home page was taken from Wikipedia Article A
-- Instructions on how to implement form validation on the Sign-Up page were taken from [Specific YouTube Tutorial](https://www.youtube.com/)
-- The icons in the footer were taken from [Font Awesome](https://fontawesome.com/)
-
-### Media
-
-- The photos used on the home and sign-up page are from This Open-Source site
-- The images used for the gallery page were taken from this other open-source site
-
-
-
-## Acknowledgements (optional)
-* Thank the people who provided support through this project.
-
+The dashboard is designed to be **user-friendly** for healthcare professionals, allowing them to gain insights and make data-driven decisions efficiently.
